@@ -1,1 +1,1 @@
-console.log("IIDREAM WIKI loaded");
+console.log("IIDRWIKI loaded");

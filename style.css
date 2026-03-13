@@ -67,7 +67,7 @@ padding:30px;
 
 }
 
-/* 위키 목차 */
+/* 목차 */
 
 .toc{
 
@@ -140,10 +140,10 @@ text-decoration:underline;
 
 .infobox{
 
-float:right;
 width:250px;
 border:1px solid #ccc;
-margin-left:20px;
+margin-left:auto;
+margin-bottom:20px;
 
 }
 
@@ -178,9 +178,7 @@ padding:6px;
 
 .infobox{
 
-float:none;
 width:100%;
-margin:20px 0;
 
 }
 

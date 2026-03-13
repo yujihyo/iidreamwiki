@@ -16,44 +16,13 @@ padding:15px;
 
 .layout{
 
-display:flex;
-max-width:1200px;
+max-width:1000px;
 margin:auto;
-
-}
-
-.sidebar{
-
-width:220px;
-background:white;
-padding:20px;
-border-right:1px solid #ddd;
-
-}
-
-.sidebar ul{
-
-list-style:none;
-padding:0;
-
-}
-
-.sidebar li{
-
-margin-bottom:10px;
-
-}
-
-.sidebar a{
-
-text-decoration:none;
-color:#0366d6;
 
 }
 
 .content{
 
-flex:1;
 background:white;
 padding:30px;
 
@@ -98,20 +67,6 @@ padding:6px;
 /* 모바일 대응 */
 
 @media (max-width:768px){
-
-.layout{
-
-flex-direction:column;
-
-}
-
-.sidebar{
-
-width:100%;
-border-right:none;
-border-bottom:1px solid #ddd;
-
-}
 
 .infobox{
 

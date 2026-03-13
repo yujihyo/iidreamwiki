@@ -1,0 +1,1 @@
+console.log("IIDREAM WIKI loaded");

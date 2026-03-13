@@ -67,6 +67,49 @@ padding:30px;
 
 }
 
+/* 위키 목차 */
+
+.toc{
+
+border:1px solid #ccc;
+background:#f8f9fa;
+padding:10px;
+width:250px;
+margin-bottom:20px;
+
+}
+
+.toc ol{
+
+margin:0;
+padding-left:20px;
+
+}
+
+.toc a{
+
+text-decoration:none;
+color:#0366d6;
+
+}
+
+.toc a:hover{
+
+text-decoration:underline;
+
+}
+
+/* 제목 */
+
+h2{
+
+border-bottom:1px solid #ccc;
+padding-bottom:5px;
+
+}
+
+/* 등장인물 목록 */
+
 .character-list{
 
 list-style:none;
@@ -92,6 +135,8 @@ text-decoration:none;
 text-decoration:underline;
 
 }
+
+/* 인포박스 */
 
 .infobox{
 

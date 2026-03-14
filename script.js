@@ -59,7 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const headings = document.querySelectorAll("h2, h3");
     let h2Count = 0;
     let h3Count = 0;
-    let currentH2Li = null;
     let currentSublist = null;
 
     headings.forEach((heading, index) => {
@@ -71,16 +70,35 @@ document.addEventListener("DOMContentLoaded", function () {
       const id = heading.id || "section-" + index;
       heading.id = id;
 
+      let headingNumber = "";
+
       if (heading.tagName.toLowerCase() === "h2") {
         h2Count++;
         h3Count = 0;
+        headingNumber = h2Count + ".";
+      }
 
+      if (heading.tagName.toLowerCase() === "h3") {
+        h3Count++;
+        headingNumber = h2Count + "." + h3Count + ".";
+      }
+
+      if (!heading.querySelector(".section-number")) {
+        const headingNumLink = document.createElement("a");
+        headingNumLink.href = "#toc";
+        headingNumLink.className = "section-number";
+        headingNumLink.textContent = headingNumber + " ";
+
+        heading.prepend(headingNumLink);
+      }
+
+      if (heading.tagName.toLowerCase() === "h2") {
         const li = document.createElement("li");
 
         const numLink = document.createElement("a");
         numLink.href = "#" + id;
         numLink.className = "toc-num";
-        numLink.textContent = h2Count + ".";
+        numLink.textContent = headingNumber;
 
         const textSpan = document.createElement("span");
         textSpan.className = "toc-text";
@@ -90,21 +108,18 @@ document.addEventListener("DOMContentLoaded", function () {
         li.appendChild(textSpan);
         tocList.appendChild(li);
 
-        currentH2Li = li;
         currentSublist = document.createElement("ol");
         currentSublist.className = "toc-sublist";
         li.appendChild(currentSublist);
       }
 
       if (heading.tagName.toLowerCase() === "h3" && currentSublist) {
-        h3Count++;
-
         const li = document.createElement("li");
 
         const numLink = document.createElement("a");
         numLink.href = "#" + id;
         numLink.className = "toc-num";
-        numLink.textContent = h2Count + "." + h3Count + ".";
+        numLink.textContent = headingNumber;
 
         const textSpan = document.createElement("span");
         textSpan.className = "toc-text";
@@ -176,7 +191,6 @@ document.addEventListener("DOMContentLoaded", function () {
     li.appendChild(noteSpan);
     footnotesList.appendChild(li);
 
-    // hover 시 툴팁 표시
     refLink.addEventListener("mouseenter", function () {
       tooltip.textContent = noteText;
       tooltip.style.display = "block";
@@ -185,13 +199,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const scrollX = window.scrollX || window.pageXOffset;
       const scrollY = window.scrollY || window.pageYOffset;
 
-      tooltip.style.left = (rect.left + scrollX + 12) + "px";
-      tooltip.style.top = (rect.bottom + scrollY + 10) + "px";
-    });
-
-    refLink.addEventListener("mousemove", function (e) {
-      tooltip.style.left = (e.pageX + 12) + "px";
-      tooltip.style.top = (e.pageY + 12) + "px";
+      tooltip.style.left = (rect.left + scrollX + rect.width / 2 - tooltip.offsetWidth / 2) + "px";
+      tooltip.style.top = (rect.top + scrollY - tooltip.offsetHeight - 10) + "px";
     });
 
     refLink.addEventListener("mouseleave", function () {

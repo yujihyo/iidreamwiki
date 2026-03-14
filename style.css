@@ -72,7 +72,7 @@ border:1px solid #cfcfcf;
 background:#fff;
 padding:0;
 margin:20px 0;
-width:280px;
+width:200px;
 }
 
 .toc-toggle{
@@ -93,6 +93,7 @@ text-align:left;
 display:flex;
 align-items:center;
 gap:6px;
+font-weight:450;
 }
 
 .toc-arrow{
@@ -134,7 +135,8 @@ text-decoration:underline;
 
 .toc-num{
 margin-right:6px;
-font-weight:600;
+font-weight:400;
+letter-spacing:-0.05em;
 }
 
 .toc-text{
@@ -143,7 +145,8 @@ color:#222;
 
 .toc-sublist{
 margin-top:6px;
-padding-left:1.8em;
+padding-left:1.4em;
+list-style:none;
 }
 
 /* 제목 */
@@ -153,6 +156,17 @@ h2{
 border-bottom:1px solid #ccc;
 padding-bottom:5px;
 
+}
+
+h3{
+
+border-bottom:1px solid #ccc;
+padding-bottom:5px;
+
+}
+
+.content p{
+font-size:15px;
 }
 
 /* 등장인물 목록 */
@@ -288,7 +302,7 @@ flex:1;
 
 padding:8px;
 
-background:#e6e6e6;
+background:#fff;
 
 }
 
@@ -531,6 +545,17 @@ text-decoration:underline;
 
 .footnote-backlink:hover {
   text-decoration: underline;
+}
+
+.section-number{
+color:#1a73d9;
+text-decoration:none;
+font-weight:700;
+margin-right:6px;
+}
+
+.section-number:hover{
+text-decoration:underline;
 }
 
 @media (max-width: 768px) {

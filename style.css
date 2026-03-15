@@ -121,6 +121,32 @@ text-decoration:none;
 text-decoration:underline;
 }
 
+/* 대사 */
+.quote-box{
+display:inline-block;
+border:2px dashed #bfbfbf;
+border-left:6px solid #7bc67b;
+background:#e6e6e6;
+padding:12px 24px;
+margin:4px 0;
+font-size:17px;
+line-height:1.7;
+font-weight:400;
+color:#222;
+box-sizing:border-box;
+max-width:100%;
+}
+
+.quote-box p{
+margin:0;
+}
+
+.quote-divider{
+border:none;
+border-top:1px solid #bfbfbf;
+margin:6px 0;
+}
+
 /* 목차 */
 .toc {
   border: 1px solid #cfcfcf;
@@ -136,6 +162,14 @@ text-decoration:underline;
   padding: 0;
   margin: 20px 0;
   width: 240px;
+}
+
+.toc_r {
+  border: 1px solid #cfcfcf;
+  background: #fff;
+  padding: 0;
+  margin: 20px 0;
+  width: 160px;
 }
 
 .toc-toggle {
@@ -366,13 +400,15 @@ h3 {
   font-size: 16px;
 }
 
-.navbox-title a {
-  color: #ffffff;
-  font-weight: 700;
-  text-decoration: none;
-  font-size: 20px;
-  line-height: 1.1;
-  display: block;
+.navbox-title a,
+.navbox-title a:visited{
+color:#ffffff;
+font-weight:700;
+text-decoration:none;
+font-size:20px;
+line-height:1.1;
+display:block;
+
 }
 
 .navbox-header {

@@ -273,6 +273,7 @@ h3 {
 
 .content p {
   font-size: 15px;
+  line-height: 1.5;
 }
 
 /* 등장인물 목록 */
@@ -292,6 +293,15 @@ h3 {
 
 .character-list a:hover {
   text-decoration: underline;
+}
+
+.cancel_text {
+  color: #9a9a9a;
+  text-decoration: line-through;
+}
+
+.cancel_text:hover {
+  text-decoration: none;
 }
 
 /* 인포박스 */

@@ -185,14 +185,14 @@ document.addEventListener("DOMContentLoaded", function () {
     numberSpan.appendChild(backLink);
 
     const noteSpan = document.createElement("span");
-    noteSpan.textContent = noteText;
+    noteSpan.innerHTML = noteText;
 
     li.appendChild(numberSpan);
     li.appendChild(noteSpan);
     footnotesList.appendChild(li);
 
     refLink.addEventListener("mouseenter", function () {
-      tooltip.textContent = noteText;
+      tooltip.innerHTML = noteText;
       tooltip.style.display = "block";
 
       const rect = refLink.getBoundingClientRect();

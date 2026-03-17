@@ -1,52 +1,9 @@
-document.querySelectorAll("h2").forEach(function (title) {
-
-    let anchor = document.createElement("a");
-
-    anchor.href = "#" + title.id;
-
-    anchor.style.color = "#999";
-    anchor.style.fontSize = "14px";
-    anchor.style.textDecoration = "none";
-
-    title.appendChild(anchor);
-
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const tocList = document.getElementById("toc-list");
-
-    if (!tocList) return;
-
-    const headings = document.querySelectorAll("h2");
-
-    headings.forEach((heading, index) => {
-
-        const id = "section-" + index;
-
-        heading.id = id;
-
-        const li = document.createElement("li");
-
-        const a = document.createElement("a");
-
-        a.href = "#" + id;
-        a.textContent = heading.textContent;
-
-        li.appendChild(a);
-
-        tocList.appendChild(li);
-
-    });
-
-});
-
 document.addEventListener("DOMContentLoaded", function () {
 
   // ----------------------------
   // 자동 목차 생성
   // ----------------------------
-    // ----------------------------
+  // ----------------------------
   // 자동 목차 생성
   // ----------------------------
   const tocList = document.getElementById("toc-list");
@@ -62,7 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentSublist = null;
 
     headings.forEach((heading, index) => {
-      const text = heading.textContent.trim();
+      const titleLink = heading.querySelector("a:not(.section-number)");
+      const text = titleLink
+        ? titleLink.textContent.trim()
+        : heading.textContent.trim();
 
       if (!text) return;
       if (heading.closest(".footnotes-section")) return;
@@ -100,12 +60,29 @@ document.addEventListener("DOMContentLoaded", function () {
         numLink.className = "toc-num";
         numLink.textContent = headingNumber;
 
-        const textSpan = document.createElement("span");
-        textSpan.className = "toc-text";
-        textSpan.textContent = text;
+        let textNode;
+
+        if (titleLink) {
+          textNode = document.createElement("a");
+          textNode.href = titleLink.getAttribute("href");
+          textNode.className = "toc-text";
+          textNode.textContent = text;
+
+          if (titleLink.target) {
+            textNode.target = titleLink.target;
+          }
+
+          if (titleLink.rel) {
+            textNode.rel = titleLink.rel;
+          }
+        } else {
+          textNode = document.createElement("span");
+          textNode.className = "toc-text";
+          textNode.textContent = text;
+        }
 
         li.appendChild(numLink);
-        li.appendChild(textSpan);
+        li.appendChild(textNode);
         tocList.appendChild(li);
 
         currentSublist = document.createElement("ol");
@@ -121,12 +98,29 @@ document.addEventListener("DOMContentLoaded", function () {
         numLink.className = "toc-num";
         numLink.textContent = headingNumber;
 
-        const textSpan = document.createElement("span");
-        textSpan.className = "toc-text";
-        textSpan.textContent = text;
+        let textNode;
+
+        if (titleLink) {
+          textNode = document.createElement("a");
+          textNode.href = titleLink.getAttribute("href");
+          textNode.className = "toc-text";
+          textNode.textContent = text;
+
+          if (titleLink.target) {
+            textNode.target = titleLink.target;
+          }
+
+          if (titleLink.rel) {
+            textNode.rel = titleLink.rel;
+          }
+        } else {
+          textNode = document.createElement("span");
+          textNode.className = "toc-text";
+          textNode.textContent = text;
+        }
 
         li.appendChild(numLink);
-        li.appendChild(textSpan);
+        li.appendChild(textNode);
         currentSublist.appendChild(li);
       }
     });

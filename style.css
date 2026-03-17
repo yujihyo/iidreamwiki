@@ -238,6 +238,11 @@ margin:6px 0;
 
 .toc-text {
   color: #222;
+  text-decoration: none;
+}
+
+.toc-text:hover {
+  text-decoration: underline;
 }
 
 .toc-sublist {

@@ -206,3 +206,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+document.querySelectorAll(".spoiler-inline").forEach(btn => {
+  btn.addEventListener("click", function () {
+    const content = this.nextElementSibling;
+
+    if (getComputedStyle(content).display === "none") {
+      content.style.display = "inline";
+    } else {
+      content.style.display = "none";
+    }
+  });
+});

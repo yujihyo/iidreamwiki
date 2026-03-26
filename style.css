@@ -599,6 +599,47 @@ display:block;
   text-decoration: underline;
 }
 
+/* 작성 중 팝업 오버레이 */
+.page-status-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.28);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 팝업 박스 */
+.page-status-popup {
+  width: min(360px, calc(100vw - 32px));
+  background: #fff;
+  border: 1px solid #cfcfcf;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  padding: 18px 20px;
+  text-align: center;
+  line-height: 1.6;
+  font-size: 14px;
+  color: #222;
+  box-sizing: border-box;
+}
+
+.page-status-popup strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+@media (max-width: 768px) {
+  .page-status-popup {
+    width: min(320px, calc(100vw - 24px));
+    font-size: 13px;
+    padding: 16px 18px;
+  }
+}
+
 /* 반응형 */
 @media (max-width: 768px) {
   .character-infobox {

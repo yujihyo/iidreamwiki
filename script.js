@@ -291,3 +291,78 @@ document.querySelectorAll(".spoiler-inline").forEach(btn => {
     }
   });
 });
+
+// ----------------------------
+// 작성 중 페이지 이동 방지 팝업
+// ----------------------------
+document.addEventListener("DOMContentLoaded", function () {
+  const overlay = document.createElement("div");
+  overlay.className = "page-status-overlay";
+  overlay.innerHTML = `
+    <div class="page-status-popup">
+      <strong>아직 작성 중인 페이지입니다.</strong>
+      <span>페이지가 완성되면 공개됩니다.</span>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  function showDraftPopup() {
+    overlay.style.display = "flex";
+  }
+
+  function hideDraftPopup() {
+    overlay.style.display = "none";
+  }
+
+  overlay.addEventListener("click", function (e) {
+    if (!e.target.closest(".page-status-popup")) {
+      hideDraftPopup();
+    }
+  });
+
+  document.addEventListener("click", async function (e) {
+    const link = e.target.closest("a[href]");
+    if (!link) return;
+
+    const href = link.getAttribute("href");
+    if (!href) return;
+
+    // 외부 링크, 같은 페이지 앵커, 자바스크립트 링크 제외
+    if (
+      href.startsWith("http://") ||
+      href.startsWith("https://") ||
+      href.startsWith("mailto:") ||
+      href.startsWith("tel:") ||
+      href.startsWith("#") ||
+      href.startsWith("javascript:")
+    ) {
+      return;
+    }
+
+    // 새 탭 링크는 건드리지 않음
+    if (link.target === "_blank") return;
+
+    try {
+      const response = await fetch(href, { method: "GET" });
+      if (!response.ok) return;
+
+      const htmlText = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlText, "text/html");
+      const statusMeta = doc.querySelector('meta[name="page-status"]');
+
+      if (statusMeta && statusMeta.getAttribute("content") === "draft") {
+        e.preventDefault();
+        showDraftPopup();
+      }
+    } catch (error) {
+      console.error("페이지 상태 확인 중 오류:", error);
+    }
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      hideDraftPopup();
+    }
+  });
+});

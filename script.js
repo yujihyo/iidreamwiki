@@ -277,3 +277,13 @@ document.querySelectorAll(".spoiler-inline").forEach(btn => {
     }
   });
 });
+
+document.addEventListener("click", function (e) {
+  const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  if (!isTouchDevice) return;
+
+  if (!e.target.closest(".footnote-ref") && !e.target.closest(".footnote-tooltip")) {
+    tooltip.style.display = "none";
+    tooltip.dataset.current = "";
+  }
+});

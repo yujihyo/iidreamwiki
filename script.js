@@ -149,86 +149,96 @@ document.addEventListener("DOMContentLoaded", function () {
   document.body.appendChild(tooltip);
 
   footnotes.forEach((footnote, index) => {
-  const number = index + 1;
-  const noteText = footnote.dataset.note || "";
-  const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    const number = index + 1;
+    const noteText = footnote.dataset.note || "";
+    const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
-  // 본문 쪽 각주 링크 생성
-  const refId = "footnote-ref-" + number;
-  const noteId = "footnote-note-" + number;
+    // 본문 쪽 각주 링크 생성
+    const refId = "footnote-ref-" + number;
+    const noteId = "footnote-note-" + number;
 
-  const refLink = document.createElement("a");
-  refLink.href = "#" + noteId;
-  refLink.className = "footnote-ref";
-  refLink.id = refId;
-  refLink.textContent = "[" + number + "]";
+    const refLink = document.createElement("a");
+    refLink.href = "#" + noteId;
+    refLink.className = "footnote-ref";
+    refLink.id = refId;
+    refLink.textContent = "[" + number + "]";
 
-  footnote.replaceWith(refLink);
+    footnote.replaceWith(refLink);
 
-  // 아래 각주 목록 생성
-  const li = document.createElement("li");
-  li.id = noteId;
+    // 아래 각주 목록 생성
+    const li = document.createElement("li");
+    li.id = noteId;
 
-  const numberSpan = document.createElement("span");
-  numberSpan.className = "footnote-note-number";
+    const numberSpan = document.createElement("span");
+    numberSpan.className = "footnote-note-number";
 
-  const backLink = document.createElement("a");
-  backLink.href = "#" + refId;
-  backLink.className = "footnote-backlink";
-  backLink.textContent = "[" + number + "]";
+    const backLink = document.createElement("a");
+    backLink.href = "#" + refId;
+    backLink.className = "footnote-backlink";
+    backLink.textContent = "[" + number + "]";
 
-  numberSpan.appendChild(backLink);
+    numberSpan.appendChild(backLink);
 
-  const noteSpan = document.createElement("span");
-  noteSpan.innerHTML = noteText;
+    const noteSpan = document.createElement("span");
+    noteSpan.innerHTML = noteText;
 
-  li.appendChild(numberSpan);
-  li.appendChild(noteSpan);
-  footnotesList.appendChild(li);
+    li.appendChild(numberSpan);
+    li.appendChild(noteSpan);
+    footnotesList.appendChild(li);
 
-  refLink.addEventListener("mouseenter", function () {
-    if (isTouchDevice) return;
-
-    tooltip.innerHTML = noteText;
-    tooltip.style.display = "block";
-
-    const rect = refLink.getBoundingClientRect();
-    const scrollX = window.scrollX || window.pageXOffset;
-    const scrollY = window.scrollY || window.pageYOffset;
-
-    tooltip.style.left = (rect.left + scrollX + rect.width / 2 - tooltip.offsetWidth / 2) + "px";
-    tooltip.style.top = (rect.top + scrollY - tooltip.offsetHeight - 10) + "px";
-  });
-
-  refLink.addEventListener("mouseleave", function () {
-    if (isTouchDevice) return;
-    tooltip.style.display = "none";
-  });
-
-  refLink.addEventListener("click", function (e) {
-    if (isTouchDevice) {
-      e.preventDefault();
-
-      if (tooltip.style.display === "block" && tooltip.dataset.current === refId) {
-        tooltip.style.display = "none";
-        tooltip.dataset.current = "";
-        return;
-      }
+    refLink.addEventListener("mouseenter", function () {
+      if (isTouchDevice) return;
 
       tooltip.innerHTML = noteText;
       tooltip.style.display = "block";
-      tooltip.dataset.current = refId;
 
       const rect = refLink.getBoundingClientRect();
       const scrollX = window.scrollX || window.pageXOffset;
       const scrollY = window.scrollY || window.pageYOffset;
 
       tooltip.style.left = (rect.left + scrollX + rect.width / 2 - tooltip.offsetWidth / 2) + "px";
-      tooltip.style.top = (rect.bottom + scrollY + 10) + "px";
-    } else {
+      tooltip.style.top = (rect.top + scrollY - tooltip.offsetHeight - 10) + "px";
+    });
+
+    refLink.addEventListener("mouseleave", function () {
+      if (isTouchDevice) return;
       tooltip.style.display = "none";
-    }
+    });
+
+    refLink.addEventListener("click", function (e) {
+      if (isTouchDevice) {
+        e.preventDefault();
+
+        if (tooltip.style.display === "block" && tooltip.dataset.current === refId) {
+          tooltip.style.display = "none";
+          tooltip.dataset.current = "";
+          return;
+        }
+
+        tooltip.innerHTML = noteText;
+        tooltip.style.display = "block";
+        tooltip.dataset.current = refId;
+
+        const rect = refLink.getBoundingClientRect();
+        const scrollX = window.scrollX || window.pageXOffset;
+        const scrollY = window.scrollY || window.pageYOffset;
+
+        tooltip.style.left = (rect.left + scrollX + rect.width / 2 - tooltip.offsetWidth / 2) + "px";
+        tooltip.style.top = (rect.bottom + scrollY + 10) + "px";
+      } else {
+        tooltip.style.display = "none";
+      }
+    });
   });
+  document.addEventListener("click", function (e) {
+  const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
+  if (!isTouchDevice) return;
+
+  if (!e.target.closest(".footnote-ref") && !e.target.closest(".footnote-tooltip")) {
+    tooltip.style.display = "none";
+    tooltip.dataset.current = "";
+  }
 });
 });
 

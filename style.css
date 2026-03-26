@@ -604,4 +604,16 @@ display:block;
   .topnav {
     margin-top: 10px;
   }
+
+  .toc-toggle {
+    color: #222;
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .toc-title,
+  .toc-arrow {
+    color: #222;
+  }
 }

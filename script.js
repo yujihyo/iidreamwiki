@@ -263,7 +263,21 @@ document.addEventListener("DOMContentLoaded", function () {
       tooltip.dataset.current = "";
     }
   });
+  
 });
+});
+
+document.addEventListener("click", function (e) {
+  const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  if (!isTouchDevice) return;
+
+  if (!e.target.closest(".footnote-ref") && !e.target.closest(".footnote-tooltip")) {
+    const tooltip = document.querySelector(".footnote-tooltip");
+    if (tooltip) {
+      tooltip.style.display = "none";
+      tooltip.dataset.current = "";
+    }
+  }
 });
 
 document.querySelectorAll(".spoiler-inline").forEach(btn => {
@@ -276,14 +290,4 @@ document.querySelectorAll(".spoiler-inline").forEach(btn => {
       content.style.display = "none";
     }
   });
-});
-
-document.addEventListener("click", function (e) {
-  const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-  if (!isTouchDevice) return;
-
-  if (!e.target.closest(".footnote-ref") && !e.target.closest(".footnote-tooltip")) {
-    tooltip.style.display = "none";
-    tooltip.dataset.current = "";
-  }
 });

@@ -257,10 +257,8 @@ document.querySelectorAll(".spoiler-inline").forEach(btn => {
 
     if (isHidden) {
       content.style.display = "inline-block";
-      btn.textContent = "▼ [ 스포일러 ]";
     } else {
       content.style.display = "none";
-      btn.textContent = "[ 스포일러 ]";
     }
   }
 

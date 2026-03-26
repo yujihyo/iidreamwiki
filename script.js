@@ -321,44 +321,52 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   document.addEventListener("click", async function (e) {
-    const link = e.target.closest("a[href]");
-    if (!link) return;
+  const link = e.target.closest("a[href]");
+  if (!link) return;
 
-    const href = link.getAttribute("href");
-    if (!href) return;
+  const href = link.getAttribute("href");
+  if (!href) return;
 
-    // 외부 링크, 같은 페이지 앵커, 자바스크립트 링크 제외
-    if (
-      href.startsWith("http://") ||
-      href.startsWith("https://") ||
-      href.startsWith("mailto:") ||
-      href.startsWith("tel:") ||
-      href.startsWith("#") ||
-      href.startsWith("javascript:")
-    ) {
+  // 외부 링크, 같은 페이지 앵커, 자바스크립트 링크 제외
+  if (
+    href.startsWith("http://") ||
+    href.startsWith("https://") ||
+    href.startsWith("mailto:") ||
+    href.startsWith("tel:") ||
+    href.startsWith("#") ||
+    href.startsWith("javascript:")
+  ) {
+    return;
+  }
+
+  // 새 탭 링크는 건드리지 않음
+  if (link.target === "_blank") return;
+
+  // ✅ 먼저 이동을 막아야 함
+  e.preventDefault();
+
+  try {
+    const response = await fetch(link.href, { method: "GET" });
+    if (!response.ok) {
+      window.location.href = link.href;
       return;
     }
 
-    // 새 탭 링크는 건드리지 않음
-    if (link.target === "_blank") return;
+    const htmlText = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlText, "text/html");
+    const statusMeta = doc.querySelector('meta[name="page-status"]');
 
-    try {
-      const response = await fetch(href, { method: "GET" });
-      if (!response.ok) return;
-
-      const htmlText = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(htmlText, "text/html");
-      const statusMeta = doc.querySelector('meta[name="page-status"]');
-
-      if (statusMeta && statusMeta.getAttribute("content") === "draft") {
-        e.preventDefault();
-        showDraftPopup();
-      }
-    } catch (error) {
-      console.error("페이지 상태 확인 중 오류:", error);
+    if (statusMeta && statusMeta.getAttribute("content") === "draft") {
+      showDraftPopup();
+    } else {
+      window.location.href = link.href;
     }
-  });
+  } catch (error) {
+    console.error("페이지 상태 확인 중 오류:", error);
+    window.location.href = link.href;
+  }
+});
 
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {

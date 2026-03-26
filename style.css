@@ -256,14 +256,6 @@ margin:6px 0;
   cursor: pointer;
   font-weight: 700;
   display: inline-block;
-  margin-bottom: 6px;
-  color: #222;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-
-.spoiler-inline:hover {
-  text-decoration: underline;
 }
 
 .spoiler-content {
@@ -537,7 +529,7 @@ display:block;
 .footnote-tooltip {
   position: absolute;
   display: none;
-  max-width: min(320px, calc(100vw - 24px));
+  max-width: 320px;
   padding: 8px 10px;
   background: #fff;
   border: 1px solid #cfcfcf;
@@ -546,8 +538,6 @@ display:block;
   line-height: 1.45;
   z-index: 9999;
   word-break: keep-all;
-  overflow-wrap: break-word;
-  box-sizing: border-box;
 }
 
 .footnotes-section {

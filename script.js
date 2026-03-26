@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // ----------------------------
   // 자동 목차 생성
   // ----------------------------
+  // ----------------------------
+  // 자동 목차 생성
+  // ----------------------------
   const tocList = document.getElementById("toc-list");
   const tocToggle = document.getElementById("toc-toggle");
   const tocBody = document.getElementById("toc-body");
@@ -16,7 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentSublist = null;
 
     headings.forEach((heading, index) => {
-      const text = heading.textContent.trim();
+      const titleLink = heading.querySelector("a:not(.section-number)");
+      const text = titleLink
+        ? titleLink.textContent.trim()
+        : heading.textContent.trim();
 
       if (!text) return;
       if (heading.closest(".footnotes-section")) return;
@@ -54,12 +60,29 @@ document.addEventListener("DOMContentLoaded", function () {
         numLink.className = "toc-num";
         numLink.textContent = headingNumber;
 
-        const textSpan = document.createElement("span");
-        textSpan.className = "toc-text";
-        textSpan.textContent = text;
+        let textNode;
+
+        if (titleLink) {
+          textNode = document.createElement("a");
+          textNode.href = titleLink.getAttribute("href");
+          textNode.className = "toc-text";
+          textNode.textContent = text;
+
+          if (titleLink.target) {
+            textNode.target = titleLink.target;
+          }
+
+          if (titleLink.rel) {
+            textNode.rel = titleLink.rel;
+          }
+        } else {
+          textNode = document.createElement("span");
+          textNode.className = "toc-text";
+          textNode.textContent = text;
+        }
 
         li.appendChild(numLink);
-        li.appendChild(textSpan);
+        li.appendChild(textNode);
         tocList.appendChild(li);
 
         currentSublist = document.createElement("ol");
@@ -75,12 +98,29 @@ document.addEventListener("DOMContentLoaded", function () {
         numLink.className = "toc-num";
         numLink.textContent = headingNumber;
 
-        const textSpan = document.createElement("span");
-        textSpan.className = "toc-text";
-        textSpan.textContent = text;
+        let textNode;
+
+        if (titleLink) {
+          textNode = document.createElement("a");
+          textNode.href = titleLink.getAttribute("href");
+          textNode.className = "toc-text";
+          textNode.textContent = text;
+
+          if (titleLink.target) {
+            textNode.target = titleLink.target;
+          }
+
+          if (titleLink.rel) {
+            textNode.rel = titleLink.rel;
+          }
+        } else {
+          textNode = document.createElement("span");
+          textNode.className = "toc-text";
+          textNode.textContent = text;
+        }
 
         li.appendChild(numLink);
-        li.appendChild(textSpan);
+        li.appendChild(textNode);
         currentSublist.appendChild(li);
       }
     });
@@ -106,131 +146,100 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const tooltip = document.createElement("div");
   tooltip.className = "footnote-tooltip";
-  tooltip.dataset.current = "";
   document.body.appendChild(tooltip);
 
-  function isTouchDevice() {
-    return window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-  }
+  footnotes.forEach((footnote, index) => {
+  const number = index + 1;
+  const noteText = footnote.dataset.note || "";
+  const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
-  function positionTooltip(refLink, placeBelow = false) {
+  // 본문 쪽 각주 링크 생성
+  const refId = "footnote-ref-" + number;
+  const noteId = "footnote-note-" + number;
+
+  const refLink = document.createElement("a");
+  refLink.href = "#" + noteId;
+  refLink.className = "footnote-ref";
+  refLink.id = refId;
+  refLink.textContent = "[" + number + "]";
+
+  footnote.replaceWith(refLink);
+
+  // 아래 각주 목록 생성
+  const li = document.createElement("li");
+  li.id = noteId;
+
+  const numberSpan = document.createElement("span");
+  numberSpan.className = "footnote-note-number";
+
+  const backLink = document.createElement("a");
+  backLink.href = "#" + refId;
+  backLink.className = "footnote-backlink";
+  backLink.textContent = "[" + number + "]";
+
+  numberSpan.appendChild(backLink);
+
+  const noteSpan = document.createElement("span");
+  noteSpan.innerHTML = noteText;
+
+  li.appendChild(numberSpan);
+  li.appendChild(noteSpan);
+  footnotesList.appendChild(li);
+
+  refLink.addEventListener("mouseenter", function () {
+    if (isTouchDevice) return;
+
+    tooltip.innerHTML = noteText;
+    tooltip.style.display = "block";
+
     const rect = refLink.getBoundingClientRect();
     const scrollX = window.scrollX || window.pageXOffset;
     const scrollY = window.scrollY || window.pageYOffset;
-    const viewportWidth = window.innerWidth;
-    const margin = 12;
 
-    let left = rect.left + scrollX + rect.width / 2 - tooltip.offsetWidth / 2;
-    let top = placeBelow
-      ? rect.bottom + scrollY + 10
-      : rect.top + scrollY - tooltip.offsetHeight - 10;
+    tooltip.style.left = (rect.left + scrollX + rect.width / 2 - tooltip.offsetWidth / 2) + "px";
+    tooltip.style.top = (rect.top + scrollY - tooltip.offsetHeight - 10) + "px";
+  });
 
-    const minLeft = scrollX + margin;
-    const maxLeft = scrollX + viewportWidth - tooltip.offsetWidth - margin;
+  refLink.addEventListener("mouseleave", function () {
+    if (isTouchDevice) return;
+    tooltip.style.display = "none";
+  });
 
-    if (left < minLeft) {
-      left = minLeft;
-    }
+  refLink.addEventListener("click", function (e) {
+    if (isTouchDevice) {
+      e.preventDefault();
 
-    if (left > maxLeft) {
-      left = maxLeft;
-    }
-
-    if (!placeBelow && top < scrollY + margin) {
-      top = rect.bottom + scrollY + 10;
-    }
-
-    tooltip.style.left = left + "px";
-    tooltip.style.top = top + "px";
-  }
-
-  footnotes.forEach((footnote, index) => {
-    const number = index + 1;
-    const noteText = footnote.dataset.note || "";
-
-    // 본문 쪽 각주 링크 생성
-    const refId = "footnote-ref-" + number;
-    const noteId = "footnote-note-" + number;
-
-    const refLink = document.createElement("a");
-    refLink.href = "#" + noteId;
-    refLink.className = "footnote-ref";
-    refLink.id = refId;
-    refLink.textContent = "[" + number + "]";
-
-    footnote.replaceWith(refLink);
-
-    // 아래 각주 목록 생성
-    const li = document.createElement("li");
-    li.id = noteId;
-
-    const numberSpan = document.createElement("span");
-    numberSpan.className = "footnote-note-number";
-
-    const backLink = document.createElement("a");
-    backLink.href = "#" + refId;
-    backLink.className = "footnote-backlink";
-    backLink.textContent = "[" + number + "]";
-
-    numberSpan.appendChild(backLink);
-
-    const noteSpan = document.createElement("span");
-    noteSpan.innerHTML = noteText;
-
-    li.appendChild(numberSpan);
-    li.appendChild(noteSpan);
-    footnotesList.appendChild(li);
-
-    // 웹: hover 시 툴팁
-    refLink.addEventListener("mouseenter", function () {
-      if (isTouchDevice()) return;
+      if (tooltip.style.display === "block" && tooltip.dataset.current === refId) {
+        tooltip.style.display = "none";
+        tooltip.dataset.current = "";
+        return;
+      }
 
       tooltip.innerHTML = noteText;
       tooltip.style.display = "block";
       tooltip.dataset.current = refId;
 
-      positionTooltip(refLink, false);
-    });
+      const rect = refLink.getBoundingClientRect();
+      const scrollX = window.scrollX || window.pageXOffset;
+      const scrollY = window.scrollY || window.pageYOffset;
 
-    refLink.addEventListener("mouseleave", function () {
-      if (isTouchDevice()) return;
-
+      tooltip.style.left = (rect.left + scrollX + rect.width / 2 - tooltip.offsetWidth / 2) + "px";
+      tooltip.style.top = (rect.bottom + scrollY + 10) + "px";
+    } else {
       tooltip.style.display = "none";
-      tooltip.dataset.current = "";
-    });
-
-    // 모바일: 클릭 시 툴팁만 표시, 이동 막기
-    // 웹: 클릭 시 기존처럼 각주 위치로 이동
-    refLink.addEventListener("click", function (e) {
-      if (isTouchDevice()) {
-        e.preventDefault();
-
-        if (tooltip.style.display === "block" && tooltip.dataset.current === refId) {
-          tooltip.style.display = "none";
-          tooltip.dataset.current = "";
-          return;
-        }
-
-        tooltip.innerHTML = noteText;
-        tooltip.style.display = "block";
-        tooltip.dataset.current = refId;
-
-        positionTooltip(refLink, true);
-      } else {
-        tooltip.style.display = "none";
-        tooltip.dataset.current = "";
-      }
-    });
-  });
-
-  // 모바일에서 각주/툴팁 바깥 클릭 시 닫기
-  document.addEventListener("click", function (e) {
-    if (!isTouchDevice()) return;
-
-    if (!e.target.closest(".footnote-ref") && !e.target.closest(".footnote-tooltip")) {
-      tooltip.style.display = "none";
-      tooltip.dataset.current = "";
     }
   });
+});
+});
 
+document.querySelectorAll(".spoiler-inline").forEach(btn => {
+  btn.addEventListener("click", function () {
+    const content = this.nextElementSibling;
+
+    if (getComputedStyle(content).display === "none") {
+      content.style.display = "inline";
+    } else {
+      content.style.display = "none";
+    }
+  });
 });

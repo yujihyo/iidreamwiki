@@ -186,23 +186,64 @@ document.addEventListener("DOMContentLoaded", function () {
   li.appendChild(noteSpan);
   footnotesList.appendChild(li);
 
-  refLink.addEventListener("mouseenter", function () {
-    if (isTouchDevice) return;
-
-    tooltip.innerHTML = noteText;
+    function showFootnoteTooltip(target, html, preferredPosition) {
+    tooltip.innerHTML = html;
     tooltip.style.display = "block";
 
-    const rect = refLink.getBoundingClientRect();
+    const rect = target.getBoundingClientRect();
     const scrollX = window.scrollX || window.pageXOffset;
     const scrollY = window.scrollY || window.pageYOffset;
+    const margin = 8;
 
-    tooltip.style.left = (rect.left + scrollX + rect.width / 2 - tooltip.offsetWidth / 2) + "px";
-    tooltip.style.top = (rect.top + scrollY - tooltip.offsetHeight - 10) + "px";
+    const tooltipWidth = tooltip.offsetWidth;
+    const tooltipHeight = tooltip.offsetHeight;
+
+    let left = rect.left + scrollX + (rect.width / 2) - (tooltipWidth / 2);
+
+    const minLeft = scrollX + margin;
+    const maxLeft = scrollX + window.innerWidth - tooltipWidth - margin;
+
+    if (left < minLeft) left = minLeft;
+    if (left > maxLeft) left = maxLeft;
+
+    const spaceAbove = rect.top;
+    const spaceBelow = window.innerHeight - rect.bottom;
+
+    let top;
+
+    if (preferredPosition === "above") {
+      if (spaceAbove >= tooltipHeight + 10) {
+        top = rect.top + scrollY - tooltipHeight - 10;
+      } else {
+        top = rect.bottom + scrollY + 10;
+      }
+    } else {
+      if (spaceBelow >= tooltipHeight + 10) {
+        top = rect.bottom + scrollY + 10;
+      } else {
+        top = rect.top + scrollY - tooltipHeight - 10;
+      }
+    }
+
+    const minTop = scrollY + margin;
+    const maxTop = scrollY + window.innerHeight - tooltipHeight - margin;
+
+    if (top < minTop) top = minTop;
+    if (top > maxTop) top = maxTop;
+
+    tooltip.style.left = left + "px";
+    tooltip.style.top = top + "px";
+  }
+
+  refLink.addEventListener("mouseenter", function () {
+    if (isTouchDevice) return;
+    showFootnoteTooltip(refLink, noteText, "above");
   });
 
   refLink.addEventListener("mouseleave", function () {
     if (isTouchDevice) return;
     tooltip.style.display = "none";
+    tooltip.dataset.current = "";
   });
 
   refLink.addEventListener("click", function (e) {
@@ -215,18 +256,11 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      tooltip.innerHTML = noteText;
-      tooltip.style.display = "block";
       tooltip.dataset.current = refId;
-
-      const rect = refLink.getBoundingClientRect();
-      const scrollX = window.scrollX || window.pageXOffset;
-      const scrollY = window.scrollY || window.pageYOffset;
-
-      tooltip.style.left = (rect.left + scrollX + rect.width / 2 - tooltip.offsetWidth / 2) + "px";
-      tooltip.style.top = (rect.bottom + scrollY + 10) + "px";
+      showFootnoteTooltip(refLink, noteText, "below");
     } else {
       tooltip.style.display = "none";
+      tooltip.dataset.current = "";
     }
   });
 });

@@ -236,32 +236,13 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.querySelectorAll(".spoiler-inline").forEach(btn => {
-  let touched = false;
+  btn.addEventListener("click", function () {
+    const content = this.nextElementSibling;
 
-  function toggleSpoiler(e) {
-    e.preventDefault();
-
-    if (e.type === "click" && touched) {
-      touched = false;
-      return;
-    }
-
-    if (e.type === "touchend") {
-      touched = true;
-    }
-
-    const content = btn.nextElementSibling;
-    if (!content || !content.classList.contains("spoiler-content")) return;
-
-    const isHidden = getComputedStyle(content).display === "none";
-
-    if (isHidden) {
-      content.style.display = "inline-block";
+    if (getComputedStyle(content).display === "none") {
+      content.style.display = "inline";
     } else {
       content.style.display = "none";
     }
-  }
-
-  btn.addEventListener("click", toggleSpoiler);
-  btn.addEventListener("touchend", toggleSpoiler);
+  });
 });

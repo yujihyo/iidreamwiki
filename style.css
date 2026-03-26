@@ -262,10 +262,6 @@ margin:6px 0;
   touch-action: manipulation;
 }
 
-.spoiler-inline:hover {
-  text-decoration: underline;
-}
-
 .spoiler-content {
   display: none;
 }

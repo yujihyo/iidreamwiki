@@ -529,7 +529,7 @@ display:block;
 .footnote-tooltip {
   position: absolute;
   display: none;
-  max-width: 320px;
+  max-width: min(320px, calc(100vw - 24px));
   padding: 8px 10px;
   background: #fff;
   border: 1px solid #cfcfcf;
@@ -538,6 +538,8 @@ display:block;
   line-height: 1.45;
   z-index: 9999;
   word-break: keep-all;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
 }
 
 .footnotes-section {

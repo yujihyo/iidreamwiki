@@ -234,3 +234,36 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
+
+document.querySelectorAll(".spoiler-inline").forEach(btn => {
+  let touched = false;
+
+  function toggleSpoiler(e) {
+    e.preventDefault();
+
+    if (e.type === "click" && touched) {
+      touched = false;
+      return;
+    }
+
+    if (e.type === "touchend") {
+      touched = true;
+    }
+
+    const content = btn.nextElementSibling;
+    if (!content || !content.classList.contains("spoiler-content")) return;
+
+    const isHidden = getComputedStyle(content).display === "none";
+
+    if (isHidden) {
+      content.style.display = "inline-block";
+      btn.textContent = "▼ [ 스포일러 ]";
+    } else {
+      content.style.display = "none";
+      btn.textContent = "[ 스포일러 ]";
+    }
+  }
+
+  btn.addEventListener("click", toggleSpoiler);
+  btn.addEventListener("touchend", toggleSpoiler);
+});

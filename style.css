@@ -337,6 +337,12 @@ h3 {
   color: #fff6f3;
 }
 
+.char-title1 {
+  background: #f9f5e9;
+  text-align: center;
+  padding: 10px;
+}
+
 .char-name-ko {
   font-size: 20px;
   font-weight: 700;
@@ -391,10 +397,40 @@ h3 {
   justify-content: center;
 }
 
+.info-label1 {
+  width: 28%;
+  background: #d2d2d2;
+  padding: 8px;
+  text-align: center;
+  color: #2d2d2d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-label2 {
+  width: 28%;
+  background: #c8c8c8;
+  padding: 8px;
+  text-align: center;
+  color: #373737;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .info-value {
   flex: 1;
   padding: 8px;
   background: #fff;
+}
+
+.info-value1 {
+  flex: 1;
+  padding: 8px;
+  background: #dcdcdc;
+  text-align: center;
+  color: #222222;
 }
 
 .info-more summary {

@@ -254,7 +254,6 @@ margin:6px 0;
 /*스포일러*/
 .spoiler-inline {
   cursor: pointer;
-  font-weight: 700;
   display: inline-block;
 }
 
@@ -290,6 +289,12 @@ h3 {
 .content p {
   font-size: 15px;
   line-height: 1.5;
+}
+
+.char-line {
+  font-size: 15px;   /* 다른 p와 동일 */
+  margin: 0;         /* 위아래 간격 제거 */
+  line-height: 1.5;  /* 기존과 맞춤 */
 }
 
 /* 등장인물 목록 */

@@ -60,91 +60,126 @@ body {
 }
 
 /* 분류 */
-.wiki-category{
-border:1px solid #d8d8d8;
-border-radius:4px;
-background:#fff;
-padding:6px 10px;
-margin:20px 0 28px 0;
-font-size:14px;
+.wiki-category {
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+  background: #fff;
+  padding: 6px 10px;
+  margin: 20px 0 28px 0;
+  font-size: 14px;
 }
 
-.wiki-category strong{
-font-weight:700;
-color:#222;
+.wiki-category strong {
+  font-weight: 700;
+  color: #222;
 }
 
-.wiki-category a{
-color:#1a73d9;
-text-decoration:none;
+.wiki-category a {
+  color: #1a73d9;
+  text-decoration: none;
 }
 
-.wiki-category a:hover{
-text-decoration:underline;
+.wiki-category a:hover {
+  text-decoration: underline;
 }
 
-.wiki-parent-doc{
-display:flex;
-align-items:center;
-gap:4px;
-margin:18px 0 30px 0;
-font-size:16px;
+.wiki-parent-doc {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 18px 0 30px 0;
+  font-size: 16px;
 }
 
 /*상위 문서*/
-.parent-icon{
-width:20px;
-height:20px;
-border-radius:50%;
-background:#2f6fab;
-color:#fff;
-display:inline-flex;
-align-items:center;
-justify-content:center;
-font-size:10px;
-font-weight:900;
-line-height:1;
-flex-shrink:0;
+.parent-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #2f6fab;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1;
+  flex-shrink: 0;
 }
 
-.parent-label{
-color:#222;
-font-weight:400;
+.parent-label {
+  color: #222;
+  font-weight: 400;
 }
 
-.wiki-parent-doc a{
-color:#1a73d9;
-text-decoration:none;
+.wiki-parent-doc a {
+  color: #1a73d9;
+  text-decoration: none;
 }
 
-.wiki-parent-doc a:hover{
-text-decoration:underline;
+.wiki-parent-doc a:hover {
+  text-decoration: underline;
 }
 
 /* 대사 */
-.quote-box{
-display:inline-block;
-border:2px dashed #bfbfbf;
-border-left:6px solid #7bc67b;
-background:#e6e6e6;
-padding:12px 24px;
-margin:4px 0;
-font-size:17px;
-line-height:1.7;
-font-weight:400;
-color:#222;
-box-sizing:border-box;
-max-width:100%;
+.quote-box {
+  display: inline-block;
+  border: 2px dashed #bfbfbf;
+  border-left: 6px solid #7bc67b;
+  background: #e6e6e6;
+  padding: 12px 24px;
+  margin: 4px 0;
+  font-size: 17px;
+  line-height: 1.7;
+  font-weight: 400;
+  color: #222;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
-.quote-box p{
-margin:0;
+.quote-box p {
+  margin: 0;
 }
 
-.quote-divider{
-border:none;
-border-top:1px solid #bfbfbf;
-margin:6px 0;
+.quote-divider {
+  border: none;
+  border-top: 1px solid #bfbfbf;
+  margin: 6px 0;
+}
+
+.quote-box-a {
+  display: inline-block;
+  border: 2px dashed #bfbfbf;
+  border-left: 6px solid #7bc67b;
+  background: #e6e6e6;
+  padding: 12px 24px;
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 700;
+  color: #222;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.quote-box-a p {
+  margin: 0;
+}
+
+.quote-divider {
+  border: none;
+  border-top: 1px solid #bfbfbf;
+  margin: 6px 0;
+}
+
+.description-box {
+  margin: 10px 0;
+  padding: 10px 15px;
+  background: #f7f7f7;
+  border: 1px solid #d5d5d5;
+  font-size: 15px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  width: 55%;
 }
 
 /* 목차 */
@@ -275,6 +310,19 @@ margin:6px 0;
   text-decoration: underline;
 }
 
+.content a.hidden-link {
+  color: #f5f5f5;
+}
+
+.content a.hidden-link:visited {
+  color: #f5f5f5;
+}
+
+.content a.hidden-link:hover {
+  text-decoration: underline;
+  text-decoration-color: #1a73d9;
+}
+
 /* 제목 */
 h2 {
   border-bottom: 1px solid #ccc;
@@ -292,9 +340,12 @@ h3 {
 }
 
 .char-line {
-  font-size: 15px;   /* 다른 p와 동일 */
-  margin: 0;         /* 위아래 간격 제거 */
-  line-height: 1.5;  /* 기존과 맞춤 */
+  font-size: 15px;
+  /* 다른 p와 동일 */
+  margin: 0;
+  /* 위아래 간격 제거 */
+  line-height: 1.5;
+  /* 기존과 맞춤 */
 }
 
 /* 등장인물 목록 */
@@ -486,13 +537,13 @@ h3 {
 }
 
 .navbox-title a,
-.navbox-title a:visited{
-color:#ffffff;
-font-weight:700;
-text-decoration:none;
-font-size:20px;
-line-height:1.1;
-display:block;
+.navbox-title a:visited {
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 20px;
+  line-height: 1.1;
+  display: block;
 
 }
 
@@ -734,7 +785,7 @@ display:block;
   font-weight: 700;
 }
 
-.series-row > *:last-child {
+.series-row>*:last-child {
   border-right: none;
 }
 
@@ -742,7 +793,7 @@ display:block;
 .series-item span {
   line-height: 1.35;
   word-break: keep-all;
-    font-size: 0.9rem;
+  font-size: 0.9rem;
 }
 
 .series-item a {
@@ -785,16 +836,16 @@ display:block;
   margin: 0;
 }
 
-.character-tree > li {
+.character-tree>li {
   margin-bottom: 20px;
 }
 
-.character-tree > li > ul {
+.character-tree>li>ul {
   margin: 4px 0 0 0;
   padding-left: 28px;
 }
 
-.character-tree > li > ul > li {
+.character-tree>li>ul>li {
   margin: 10px 0;
 }
 
@@ -809,6 +860,250 @@ display:block;
 
 .character-tree a:hover {
   text-decoration: underline;
+}
+
+/* ===========================
+   초고교급 학생 틀
+=========================== */
+
+.ultimate-box {
+  width: 90%;
+  border: 1px solid #cfcfcf;
+  background: #f5f5f5;
+  box-sizing: border-box;
+  margin: 25px auto;
+}
+
+.ultimate-title {
+
+  background: #dddddd;
+
+  text-align: center;
+
+  padding: 6px;
+
+  font-size: 15px;
+
+  font-weight: bold;
+
+  line-height: 1.45;
+
+}
+
+.ultimate-title a {
+
+  color: #0b66d1;
+
+  text-decoration: none;
+
+}
+
+.ultimate-title a:hover {
+
+  text-decoration: underline;
+
+}
+
+.ultimate-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(6, 1fr);
+
+  gap: 10px;
+
+  padding: 10px;
+
+}
+
+.ultimate-card {
+
+  text-align: center;
+
+}
+
+.ultimate-job {
+
+  border-radius: 6px;
+
+  color: #fff;
+
+  font-size: 13px;
+
+  padding: 2px 6px;
+
+  margin-bottom: 4px;
+
+}
+
+.ultimate-name {
+
+  font-size: 13px;
+
+  line-height: 1.1;
+
+}
+
+.ultimate-name a {
+
+  color: #0b66d1;
+
+  text-decoration: none;
+
+}
+
+.ultimate-name a:hover {
+
+  text-decoration: underline;
+
+}
+
+/* 색상 */
+
+.job-green {
+  background: #228b22;
+}
+
+.job-pink {
+  background: #ff69b4;
+}
+
+.job-yellow {
+  background: #ffc800;
+  color: #222;
+}
+
+.job-purple {
+  background: #9966cc;
+}
+
+.job-blue {
+  background: #4570e6;
+}
+
+.job-magenta {
+  background: #c71585;
+}
+
+.job-red {
+  background: #b22222;
+}
+
+.job-ivory {
+  background: #f1e7c8;
+  color: #222;
+}
+
+.job-violet {
+  background: #880085;
+}
+
+.job-grapefruit {
+  background: #ea3c53;
+}
+
+.job-lemon {
+  background: #ffef00;
+  color: #222;
+}
+
+.job-navy {
+  background: #0047ab;
+}
+
+.job-orange {
+  background: #8b4513;
+}
+
+.job-darkgreen {
+  background: #00563b;
+}
+
+.job-salmon {
+  background: #ff9e9b;
+}
+
+.job-lime {
+  background: #dfff00;
+  color: #222;
+}
+
+.job-gray {
+  background: #f5f5f5;
+  color: #f5f5f5;
+}
+
+
+/* 모바일 */
+
+@media (max-width:768px) {
+
+  .ultimate-grid {
+
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+
+  .ultimate-title {
+
+    font-size: 20px;
+
+  }
+
+}
+
+/* 이미지 프레임 */
+
+.image-frame {
+
+  width: 100%;
+
+  margin: 20px 0;
+
+  border: 1px solid #555;
+
+  background: #000;
+
+  box-sizing: border-box;
+
+  padding-top: 4px;
+
+}
+
+/* 이미지 */
+
+.image-frame img {
+
+  display: block;
+
+  width: 98%;
+
+  height: auto;
+
+  margin: 0 auto;
+
+  margin-bottom: 5px;
+
+}
+
+/* 아래 검은 설명 */
+
+.image-caption {
+
+  background: #000;
+
+  color: #fff;
+
+  text-align: center;
+
+  padding: 7px 10px;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  border-top: 1px solid #fff;
+
 }
 
 /* 반응형 */
@@ -830,7 +1125,7 @@ display:block;
     padding: 12px 10px;
   }
 
-  .series-row > *:last-child {
+  .series-row>*:last-child {
     border-bottom: none;
   }
 

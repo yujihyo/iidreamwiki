@@ -147,6 +147,19 @@ body {
   margin: 6px 0;
 }
 
+.quote-box-b {
+  display: inline-block;
+  border: 2px dashed #bfbfbf;
+  border-left: 6px solid #7bc67b;
+  background: #e6e6e6;
+  padding: 12px 24px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #222;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
 .quote-box-a {
   display: inline-block;
   border: 2px dashed #bfbfbf;
@@ -916,6 +929,18 @@ h3 {
 
 }
 
+.ultimate-grid-a {
+
+  display: grid;
+
+  grid-template-columns: repeat(7, 1fr);
+
+  gap: 10px;
+
+  padding: 10px;
+
+}
+
 .ultimate-card {
 
   text-align: center;
@@ -1033,6 +1058,42 @@ h3 {
   color: #f5f5f5;
 }
 
+.gift-table {
+    width: 66%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    table-layout: fixed;
+}
+
+.gift-table th,
+.gift-table td {
+    border: 1px solid #d8d8d8;
+    padding: 14px 18px;
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: 400;
+}
+
+.gift-table th {
+    width: 45%;
+    background: #fafafa;
+}
+
+.gift-table td {
+    background: #fff;
+}
+
+.punishment-box {
+    margin: 20px 0;
+    padding: 10px 12px;
+    border: 1px solid #ced3d8;
+    background-color: #f8f8f8;
+    color: #222;
+    line-height: 1.3;
+    font-size: 15px;
+}
 
 /* 모바일 */
 

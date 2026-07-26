@@ -374,3 +374,51 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+const imagePopup = document.getElementById("imagePopup");
+const imagePopupWindow = document.querySelector(".image-popup-window");
+const imagePopupImg = document.getElementById("imagePopupImg");
+
+document.querySelectorAll(".image-popup-link").forEach(link=>{
+
+    link.addEventListener("click",function(){
+
+        imagePopupImg.src=this.dataset.image;
+
+        imagePopup.style.display="flex";
+
+    });
+
+});
+
+/* 이미지 클릭 → 새 탭 */
+imagePopupImg.addEventListener("click",function(e){
+
+    e.stopPropagation();
+
+    window.open(this.src,"_blank");
+
+});
+
+/* 팝업창 클릭 → 닫히지 않음 */
+imagePopupWindow.addEventListener("click",function(e){
+
+    e.stopPropagation();
+
+});
+
+/* 배경 클릭 → 닫기 */
+imagePopup.addEventListener("click",function(){
+
+    imagePopup.style.display="none";
+
+});
+
+/* ESC */
+document.addEventListener("keydown",function(e){
+
+    if(e.key==="Escape"){
+        imagePopup.style.display="none";
+    }
+
+});

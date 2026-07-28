@@ -1208,7 +1208,7 @@ h3 {
 
   .ultimate-grid {
 
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(6, 1fr);
 
   }
 
@@ -1289,4 +1289,57 @@ h3 {
   .toc-arrow {
     color: #222;
   }
+}
+
+/* ===========================
+   모바일 추가 대응 (기존 코드 수정 X)
+=========================== */
+
+@media (max-width:768px){
+
+  /* 선물 표 */
+  .gift-table{
+    width:100%;
+    font-size:14px;
+  }
+
+  .gift-table th,
+  .gift-table td{
+    padding:10px 8px;
+    font-size:14px;
+    word-break:keep-all;
+    overflow-wrap:anywhere;
+  }
+
+  /* 벌칙 설명 박스 */
+  .punishment-box{
+    font-size:14px;
+    line-height:1.6;
+    word-break:keep-all;
+    overflow-wrap:anywhere;
+  }
+
+  /* 이미지 프레임 */
+  .image-frame{
+    margin:16px 0;
+  }
+
+  .image-caption{
+    font-size:14px;
+    padding:6px 8px;
+  }
+
+  /* 팝업 */
+  .image-popup-window{
+    max-width:94vw;
+    max-height:94vh;
+    padding:8px;
+    box-sizing:border-box;
+  }
+
+  #imagePopupImg{
+    max-width:90vw;
+    max-height:90vh;
+  }
+
 }

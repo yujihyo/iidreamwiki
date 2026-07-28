@@ -1226,6 +1226,12 @@ h3 {
 
   }
 
+  .description-box {
+
+    width: 80%;
+
+  }
+
 }
 
 /* 반응형 */
